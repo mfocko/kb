@@ -9,4 +9,6 @@ deploy-poincare:
 	URL=https://fi.mfocko.xyz BASE_URL=/ npm run build
 	rsync -avzrlpptv --delete build/ poincare:~/public_html/fi/
 
+deploy: deploy-aisa deploy-poincare
+
 .PHONY: deploy-aisa deploy-poincare
