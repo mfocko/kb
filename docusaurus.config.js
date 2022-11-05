@@ -9,6 +9,21 @@ const katex = require("rehype-katex");
 
 require("dotenv").config();
 
+function constructDocs(subject) {
+  return [
+    "@docusaurus/plugin-content-docs",
+    {
+      id: subject,
+      path: subject,
+      routeBasePath: subject,
+      sidebarPath: require.resolve("./sidebars.js"),
+      editUrl: "https://gitlab.fi.muni.cz/xfocko/kb/tree/main",
+      remarkPlugins: [math],
+      rehypePlugins: [katex],
+    },
+  ];
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Additional materials by mf",
@@ -29,14 +44,7 @@ const config = {
       "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          path: "ib002",
-          routeBasePath: "ib002",
-          sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://gitlab.fi.muni.cz/xfocko/kb/tree/main",
-          remarkPlugins: [math],
-          rehypePlugins: [katex],
-        },
+        docs: false,
         blog: false,
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -45,56 +53,7 @@ const config = {
     ],
   ],
 
-  plugins: [
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "ib015",
-        path: "ib015",
-        routeBasePath: "ib015",
-        sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://gitlab.fi.muni.cz/xfocko/kb/tree/main",
-        remarkPlugins: [math],
-        rehypePlugins: [katex],
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "ib110",
-        path: "ib110",
-        routeBasePath: "ib110",
-        sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://gitlab.fi.muni.cz/xfocko/kb/tree/main",
-        remarkPlugins: [math],
-        rehypePlugins: [katex],
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "pb071",
-        path: "pb071",
-        routeBasePath: "pb071",
-        sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://gitlab.fi.muni.cz/xfocko/kb/tree/main",
-        remarkPlugins: [math],
-        rehypePlugins: [katex],
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "pb161",
-        path: "pb161",
-        routeBasePath: "pb161",
-        sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://gitlab.fi.muni.cz/xfocko/kb/tree/main",
-        remarkPlugins: [math],
-        rehypePlugins: [katex],
-      },
-    ],
-  ],
+  plugins: ["ib002", "ib015", "ib110", "pb071", "pb161"].map(constructDocs),
 
   stylesheets: [
     {
@@ -115,6 +74,7 @@ const config = {
           {
             type: "doc",
             docId: "ib002-intro",
+            docsPluginId: "ib002",
             position: "left",
             label: "IB002: Algorithms",
           },
