@@ -121,6 +121,11 @@ const config = {
           "rust",
         ],
       },
+      docs: {
+        sidebar: {
+          hideable: true,
+        }
+      }
     }),
 };
 
