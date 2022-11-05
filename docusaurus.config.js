@@ -53,7 +53,7 @@ const config = {
     ],
   ],
 
-  plugins: ["ib002", "ib015", "ib110", "pb071", "pb161"].map(constructDocs),
+  plugins: ["ib002", "ib015", "ib110", "ib111", "pb071", "pb161"].map(constructDocs),
 
   stylesheets: [
     {
@@ -91,6 +91,13 @@ const config = {
           //   docsPluginId: "ib110",
           //   position: "left",
           //   label: "IB110: Introduction to informatics",
+          // },
+          // {
+          //   type: "doc",
+          //   docId: "ib111-intro",
+          //   docsPluginId: "ib111",
+          //   position: "left",
+          //   label: "IB111: Foundations of programming",
           // },
           {
             type: "doc",
