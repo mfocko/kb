@@ -1,0 +1,4 @@
+{
+  "args": ["{test_case}.in", "{test_case}.out_produced", "mmap"],
+  "specialized_test": ["diff", "{test_case}.out", "{test_case}.out_produced"]
+}

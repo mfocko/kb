@@ -1,0 +1,6 @@
+label: Graphs
+position: 10
+link:
+  type: generated-index
+  description: |
+    Materials related to basic graph algorithms and graph problems.

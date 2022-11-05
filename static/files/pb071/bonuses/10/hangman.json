@@ -1,0 +1,5 @@
+{
+  "args": ["{test_case}.words"],
+  "has_stdin": true,
+  "capture_stdout": true
+}

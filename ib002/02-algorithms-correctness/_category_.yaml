@@ -1,0 +1,7 @@
+label: Algorithms and correctness
+position: 2
+link:
+  type: generated-index
+  description: |
+    Materials related to basic ideas behind algorithms and proofs of their
+    correctness.

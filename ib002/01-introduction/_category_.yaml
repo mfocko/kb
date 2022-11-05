@@ -1,0 +1,7 @@
+label: Introduction, linked list, queue and stack
+position: 1
+link:
+  type: generated-index
+  description: |
+    Materials related to basic data structures such as linked list, queue or
+    stack.

@@ -1,0 +1,15 @@
+*
+
+!*/
+
+!*.gitignore
+!*.clang-format
+!*.clang-tidy
+
+!*.txt
+!*.TXT
+
+!*.cpp
+!*.hpp
+!makefile
+!.rules.mk

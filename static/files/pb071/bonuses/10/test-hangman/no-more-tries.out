@@ -1,0 +1,40 @@
+Welcome to the game, Hangman!
+I am thinking of a word that is 10 letters long.
+-------------
+You have 8 guesses left.
+Available letters: abcdefghijklmnopqrstuvwxyz
+Please guess a letter: Oops! That letter is not in my word: _ _ _ _ _ _ _ _ _ _
+-------------
+You have 7 guesses left.
+Available letters: bcdefghijklmnopqrstuvwxyz
+Please guess a letter: Good guess: _ _ _ e _ e _ _ e _
+-------------
+You have 7 guesses left.
+Available letters: bcdfghijklmnopqrstuvwxyz
+Please guess a letter: Oops! That letter is not in my word: _ _ _ e _ e _ _ e _
+-------------
+You have 6 guesses left.
+Available letters: cdfghijklmnopqrstuvwxyz
+Please guess a letter: Oops! That letter is not in my word: _ _ _ e _ e _ _ e _
+-------------
+You have 5 guesses left.
+Available letters: dfghijklmnopqrstuvwxyz
+Please guess a letter: Oops! That letter is not in my word: _ _ _ e _ e _ _ e _
+-------------
+You have 4 guesses left.
+Available letters: dfghijklmnoprstuvwxyz
+Please guess a letter: Oops! That letter is not in my word: _ _ _ e _ e _ _ e _
+-------------
+You have 3 guesses left.
+Available letters: dfghijklmnoprstuvxyz
+Please guess a letter: Oops! That letter is not in my word: _ _ _ e _ e _ _ e _
+-------------
+You have 2 guesses left.
+Available letters: dfghijklmnorstuvxyz
+Please guess a letter: Oops! That letter is not in my word: _ _ _ e _ e _ _ e _
+-------------
+You have 1 guesses left.
+Available letters: dfghijkmnorstuvxyz
+Please guess a letter: Oops! That letter is not in my word: _ _ _ e _ e _ _ e _
+-------------
+Sorry, you ran out of guesses. The word was undeserved.

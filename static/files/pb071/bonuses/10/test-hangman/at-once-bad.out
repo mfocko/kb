@@ -1,0 +1,10 @@
+Welcome to the game, Hangman!
+I am thinking of a word that is 4 letters long.
+-------------
+You have 8 guesses left.
+Available letters: abcdefghijklmnopqrstuvwxyz
+Please guess a letter: Good guess: _ o _ _
+-------------
+You have 8 guesses left.
+Available letters: abcdefghijklmnpqrstuvwxyz
+Please guess a letter: Sorry, bad guess. The word was goal.
