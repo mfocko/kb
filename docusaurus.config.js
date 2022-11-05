@@ -99,7 +99,7 @@ const config = {
         items: [
           ...subjects.map(s => s.navbar()),
           {
-            href: "https://gitlab.fi.muni.cz/xfocko/fi",
+            href: "https://gitlab.fi.muni.cz/xfocko/kb",
             label: "GitLab",
             position: "right",
           },
