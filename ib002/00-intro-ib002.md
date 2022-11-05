@@ -1,7 +1,7 @@
 ---
 id: ib002-intro
 title: Introduction
-slug: /intro
+slug: /
 ---
 
 In this part you can find „random“ additional materials I have written over the
