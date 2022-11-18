@@ -1,0 +1,25 @@
+digraph G {
+    node [shape=record];
+
+    a_node [label="1|2|3|4|5|6|7|8|9"]
+
+    b_node [label="1|2|3"]
+    c_node [label="4|5|6"]
+    d_node [label="7|8|9"]
+
+    a_node -> b_node [label="B"]
+    a_node -> c_node [label="C"]
+    a_node -> d_node [label="D"]
+
+    b_node -> "1"
+    b_node -> "2"
+    b_node -> "3"
+
+    c_node -> "4"
+    c_node -> "5"
+    c_node -> "6"
+
+    d_node -> "7"
+    d_node -> "8"
+    d_node -> "9"
+}

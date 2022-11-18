@@ -11,4 +11,7 @@ deploy-poincare:
 
 deploy: deploy-aisa deploy-poincare
 
-.PHONY: deploy-aisa deploy-poincare
+regenerate-dots:
+	bash regenerate-dots.sh
+
+.PHONY: deploy-aisa deploy-poincare regenerate-dots

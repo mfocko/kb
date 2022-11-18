@@ -78,7 +78,7 @@ As we could observe in the example above, `extend` iterates over all of the elem
 
 Consider constructing of this list:
 
-![Rendered construction of the list](/files/ib002/extend/rendered.svg)
+![Rendered construction of the list](/files/ib002/extend/construction.svg)
 
 <details>
 <summary>Source for the rendered construction of the list</summary>
