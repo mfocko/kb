@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 FONT="Iosevka,'Iosevka Term','Cascadia Code','JetBrains Mono','Fira Code',monospace"
 

@@ -1,0 +1,34 @@
+image: node:current-alpine3.15
+
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  script:
+  - yarn install
+  - URL=http://localhost BASE_URL=/ yarn build
+  except:
+    - main
+  tags:
+    - shared-fi
+
+deploy:
+  stage: deploy
+  script:
+  - mkdir -p ~/.ssh
+  - ln -s $SSH_CONFIG ~/.ssh/config
+  - ln -s $SSH_KEY ~/.ssh/id_ed25519
+  - ln -s $SSH_KNOWN_HOSTS ~/.ssh/known_hosts
+  - chmod 600 ~/.ssh/config ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+  - apk update && apk add make graphviz zip openssh rsync
+  - yarn install
+  - make regenerate-dots
+  - make regenerate-zips
+  - make deploy-aisa
+  - make deploy-poincare
+  only:
+    - main
+  tags:
+    - shared-fi
