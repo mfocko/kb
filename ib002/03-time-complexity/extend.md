@@ -1,8 +1,7 @@
 ---
 title: Time complexity of ‹extend›
 description: |
-  Hidden time complexity behind commonly used functions on lists and how can
-  repeating of a relatively cheap operation increase its time complexity.
+  How to make inefficient algorithm unknowingly.
 ---
 
 ## Introduction
@@ -79,39 +78,6 @@ As we could observe in the example above, `extend` iterates over all of the elem
 Consider constructing of this list:
 
 ![Rendered construction of the list](/files/ib002/extend/construction.svg)
-
-<details>
-<summary>Source for the rendered construction of the list</summary>
-
-```dot
-digraph G {
-    node [shape=record];
-
-    a_node [label="1|2|3|4|5|6|7|8|9"]
-
-    b_node [label="1|2|3"]
-    c_node [label="4|5|6"]
-    d_node [label="7|8|9"]
-
-    a_node -> b_node [label="B"]
-    a_node -> c_node [label="C"]
-    a_node -> d_node [label="D"]
-
-    b_node -> "1"
-    b_node -> "2"
-    b_node -> "3"
-
-    c_node -> "4"
-    c_node -> "5"
-    c_node -> "6"
-
-    d_node -> "7"
-    d_node -> "8"
-    d_node -> "9"
-}
-```
-
-</details>
 
 Let us assume that you extend the result with the list that you get from the recursive call.
 

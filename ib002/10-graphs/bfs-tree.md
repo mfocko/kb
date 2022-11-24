@@ -17,55 +17,9 @@ Consider the following graph:
 
 ![BFS graph](/files/ib002/bfs-tree/bfs_graph.svg)
 
-<details>
-<summary>Source for the rendered graph</summary>
-
-```dot showLineNumbers
-graph {
-    a -- c
-    a -- e
-
-    c -- i
-    c -- b
-
-    e -- j
-
-    i -- d
-
-    b -- h
-
-    d -- h
-
-    h -- j
-}
-```
-
-</details>
-
 We run BFS from the vertex $a$ and obtain the following BFS tree:
 
 ![BFS tree](/files/ib002/bfs-tree/bfs_tree.svg)
-
-<details>
-<summary>Source for the BFS tree</summary>
-
-```dot showLineNumbers
-digraph {
-    a -> c
-    a -> e
-
-    c -> b
-    c -> i
-
-    e -> j
-
-    b -> h
-
-    i -> d
-}
-```
-
-</details>
 
 Let's consider pair of vertices $e$ and $h$. For them we can safely lay, from the BFS tree, following properties:
 
@@ -82,32 +36,6 @@ Now the more important question, is there a shorter path in that graph? The answ
 
 ![BFS tree](/files/ib002/bfs-tree/bfs_graph_with_additional_edge.svg)
 
-<details>
-<summary>Source for the BFS graph with an additional edge</summary>
-
-```dot showLineNumbers
-graph {
-    a -- c
-    a -- e
-
-    c -- i
-    c -- b
-
-    e -- j
-    e -- h
-
-    i -- d
-
-    b -- h
-
-    d -- h
-
-    h -- j
-}
-```
-
-</details>
-
 Okay, so we have a graph that breaks the rule we have laid. However, we need to run BFS to obtain the new BFS tree, since we have changed the graph.
 
 :::tip
@@ -119,26 +47,6 @@ Do we need to run BFS after **every** change?
 :::
 
 ![BFS tree](/files/ib002/bfs-tree/bfs_tree_with_additional_edge.svg)
-
-<details>
-<summary>Source for the BFS tree</summary>
-
-```dot showLineNumbers
-digraph {
-    a -> c
-    a -> e
-
-    c -> b
-    c -> i
-
-    e -> h
-    e -> j
-
-    i -> d
-}
-```
-
-</details>
 
 Oops, we have gotten a new BFS tree, that has a height difference of 1.
 

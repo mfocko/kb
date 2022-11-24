@@ -1,17 +1,20 @@
-dev:
-	URL=http://localhost BASE_URL=/ npm run start
+dev: regenerate-dots regenerate-zips
+	URL=http://localhost BASE_URL=/ yarn run start
 
 deploy-aisa:
-	URL=https://fi.muni.cz BASE_URL=~xfocko/kb/ npm run build
+	URL=https://fi.muni.cz BASE_URL=~xfocko/kb/ yarn run build
 	rsync -avzrlpptv --delete build/ aisa:~/public_html/kb/
 
 deploy-poincare:
-	URL=https://fi.mfocko.xyz BASE_URL=/ npm run build
+	URL=https://fi.mfocko.xyz BASE_URL=/ yarn run build
 	rsync -avzrlpptv --delete build/ poincare:~/public_html/fi/
 
-deploy: deploy-aisa deploy-poincare
+deploy: regenerate-dots regenerate-zips deploy-aisa deploy-poincare
 
 regenerate-dots:
 	bash regenerate-dots.sh
 
-.PHONY: deploy-aisa deploy-poincare regenerate-dots
+regenerate-zips:
+	bash regenerate-zips.sh
+
+.PHONY: deploy-aisa deploy-poincare regenerate-dots regenerate-zips
