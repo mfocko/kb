@@ -9,7 +9,7 @@ tags:
 - backtracking
 ---
 
-- [Sources](pathname:///files/ib002/karel_1)
+- [Sources](pathname:///files/ib002/karel-1)
 
 ## Introduction
 
@@ -58,7 +58,7 @@ Helper functions / procedures are allowed. Return values are allowed.
 Your task is to decide whether there is an exit from the maze or not. You can see
 an example of a maze here:
 
-![Image of the maze](/img/ib002/karel_1/maze.png)
+![Image of the maze](/img/ib002/karel-1/maze.png)
 
 ## Simple problem to get familiar with the robot
 
@@ -69,7 +69,7 @@ You are standing in front of the stairs, your task is to walk up the stairs.
 
 You can see an example of such map here:
 
-![Image of the stairs](/img/ib002/karel_1/stairs.png)
+![Image of the stairs](/img/ib002/karel-1/stairs.png)
 
 ## Brainstorm the idea
 
