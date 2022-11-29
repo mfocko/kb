@@ -9,7 +9,7 @@ tags:
 - backtracking
 ---
 
-- [Sources](pathname://files/ib002/karel_1)
+- [Sources](pathname:///files/ib002/karel_1)
 
 ## Introduction
 
