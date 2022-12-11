@@ -2,6 +2,9 @@
 title: Distance boundaries from BFS tree on undirected graphs
 description: |
   Short explanation of distance boundaries deduced from a BFS tree.
+tags:
+- graphs
+- bfs
 ---
 
 ## Introduction

@@ -2,6 +2,12 @@
 title: Time complexity of ‹extend›
 description: |
   How to make inefficient algorithm unknowingly.
+tags:
+- c
+- python
+- dynamic array
+- time complexity
+- recursion
 ---
 
 ## Introduction

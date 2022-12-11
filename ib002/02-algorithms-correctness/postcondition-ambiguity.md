@@ -1,8 +1,12 @@
 ---
 title: Vague postconditions and proving correctness of algorithms
 description: |
-  Practical example that shows how precise postconditions can help with both
-  debugging and testing of the code.
+  Debugging and testing with precise postconditions.
+tags:
+- python
+- testing
+- postconditions
+- sorting
 ---
 
 ## Introduction

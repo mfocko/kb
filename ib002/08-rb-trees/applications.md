@@ -1,8 +1,11 @@
 ---
 title: Použití červeno-černých stromů
 description: |
-  Ukázka použití červeno-černých stromů pro implementaci množiny nebo mapy
-  a ukázky jednotlivých implementací ve standardních knižnicích známých jazyků.
+  Ukázka použití červeno-černých stromů v standardních knižnicích známých jazyků.
+tags:
+- balanced trees
+- red-black trees
+- applications
 ---
 
 ## Použití

@@ -1,7 +1,12 @@
 ---
 title: Iterative algorithms via iterators
 description: |
-  Examples of iterative implementations of DFS using iterators.
+  Iterative DFS using iterators.
+tags:
+- csharp
+- graphs
+- iterators
+- iterative
 ---
 
 ## Introduction
