@@ -79,7 +79,21 @@ const config = {
     ],
   ],
 
-  plugins: subjects.map(s => s.docs()),
+  plugins: [
+    ...subjects.map(s => s.docs()),
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        id: 'blog',
+        routeBasePath: 'blog',
+        path: './blog',
+        feedOptions: {
+          type: 'all',
+          copyright: `Copyright © ${new Date().getFullYear()} Matej Focko.`,
+        },
+      },
+    ],
+  ],
 
   stylesheets: [
     {
@@ -98,6 +112,11 @@ const config = {
         title: "Additional materials by mf",
         items: [
           ...subjects.map(s => s.navbar()),
+          {
+            to: "blog",
+            position: "right",
+            label: "Blog",
+          },
           {
             href: "https://gitlab.fi.muni.cz/xfocko/kb",
             label: "GitLab",
