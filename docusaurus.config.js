@@ -1,7 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/vsLight");
+const lightCodeTheme = require("./src/prism-themes/solarizedLight");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 const math = require("remark-math");
@@ -114,6 +114,7 @@ const config = {
         darkTheme: darkCodeTheme,
         additionalLanguages: [
           "ada",
+          "bash",
           "csharp",
           "dot",
           "haskell",
