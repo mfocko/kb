@@ -118,7 +118,7 @@ const config = {
             label: "Blog",
           },
           {
-            href: "https://gitlab.fi.muni.cz/xfocko/kb",
+            href: "https://gitlab.com/mfocko/kb",
             label: "GitLab",
             position: "right",
           },
