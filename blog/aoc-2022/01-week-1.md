@@ -77,11 +77,10 @@ mod tests {
 ```
 
 And later on I have noticed, it's hard to tell the difference between the days,
-so I further renamed to `mod` to reflect the days.
+so I further renamed the `mod` from generic `tests` to reflect the days.
 
-Also first thing I've done after finishing the first day puzzle, I have installed
-an [`sccache`] to cache the builds, so that the build time is lower, cause it was
-kinda unbearable.
+Also after finishing the first day puzzle, I have installed an [`sccache`] to
+cache the builds, so that the build time is lower, cause it was kinda unbearable.
 
 ### Solution
 
@@ -292,6 +291,13 @@ move 1 from 1 to 2
 
 Good luck transforming that into something reasonable :)
 
+
+:::tip Fun fact
+
+Took me 40 minutes to parse this reasonably, including fighting the compiler.
+
+:::
+
 ### Solution
 
 For the initial solution I went with a manual solution (as in _I have done all_
@@ -401,7 +407,7 @@ _reference counted_ (that's what the `Rc` stands for). You can imagine this as
 
 Now the fun stuff. Neither of them lets you **mutate** the contents of the memory.
 
-`Cell<T>` allow you to mutate the memory. Can be used reasonably with types that
+`Cell<T>` allows you to mutate the memory. Can be used reasonably with types that
 can be copied, because the memory safety is guaranteed by copying the contents
 when there is more than one **mutable** reference to the memory.
 
