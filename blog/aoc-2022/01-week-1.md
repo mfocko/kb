@@ -79,6 +79,10 @@ mod tests {
 And later on I have noticed, it's hard to tell the difference between the days,
 so I further renamed to `mod` to reflect the days.
 
+Also first thing I've done after finishing the first day puzzle, I have installed
+an [`sccache`] to cache the builds, so that the build time is lower, cause it was
+kinda unbearable.
+
 ### Solution
 
 Well, it's a pretty simple problem. You just take the input, sum the calories and
@@ -461,6 +465,7 @@ the filesystem.
 [_Advent of Code_]: https://adventofcode.com
 [GitLab]: https://gitlab.com/mfocko/advent-of-code-2022
 [`/src/bin/`]: https://gitlab.com/mfocko/advent-of-code-2022/-/tree/main/src/bin
+[`sccache`]: https://github.com/mozilla/sccache
 [`RangeInclusive`]: https://doc.rust-lang.org/std/ops/struct.RangeInclusive.html
 [`split_off`]: https://doc.rust-lang.org/std/vec/struct.Vec.html#method.split_off
 [`du`]: https://www.man7.org/linux/man-pages/man1/du.1.html
