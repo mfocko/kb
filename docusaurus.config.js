@@ -91,6 +91,8 @@ const config = {
           type: 'all',
           copyright: `Copyright © ${new Date().getFullYear()} Matej Focko.`,
         },
+        remarkPlugins: [math],
+        rehypePlugins: [katex],
       },
     ],
   ],
