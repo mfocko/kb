@@ -23,7 +23,7 @@ class Subject {
         path: this.subject,
         routeBasePath: this.subject,
         sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://gitlab.fi.muni.cz/xfocko/kb/tree/main",
+        editUrl: "https://gitlab.com/mfocko/kb/tree/main",
         remarkPlugins: [math],
         rehypePlugins: [katex],
       },
@@ -38,6 +38,13 @@ class Subject {
       position: "left",
       label: `${this.subject.toUpperCase()}: ${this.description}`,
     };
+  }
+
+  footer() {
+    return {
+      label: `${this.subject.toUpperCase()}: ${this.description}`,
+      to: this.subject,
+    }
   }
 }
 
@@ -91,6 +98,7 @@ const config = {
           type: 'all',
           copyright: `Copyright © ${new Date().getFullYear()} Matej Focko.`,
         },
+        editUrl: "https://gitlab.com/mfocko/kb/tree/main",
         remarkPlugins: [math],
         rehypePlugins: [katex],
       },
@@ -119,16 +127,64 @@ const config = {
             position: "right",
             label: "Blog",
           },
-          {
-            href: "https://gitlab.com/mfocko/kb",
-            label: "GitLab",
-            position: "right",
-          },
         ],
       },
       footer: {
         style: "dark",
         copyright: `Copyright © ${new Date().getFullYear()} Matej Focko.`,
+        links: [
+          {
+            title: "Additional materials for φ courses",
+            items: subjects.map(s => s.footer()),
+          },
+          {
+            title: "Social #1",
+            items: [
+              {
+                label: "LinkedIn",
+                href: "https://www.linkedin.com/in/mfocko/",
+              },
+              {
+                label: "GitHub",
+                href: "https://github.com/mfocko",
+              },
+              {
+                label: "GitLab",
+                href: "https://gitlab.com/mfocko",
+              },
+            ],
+          },
+          {
+            title: "Social #2",
+            items: [
+              {
+                label: "Twitter",
+                href: "https://twitter.com/m4tt_314",
+              },
+              {
+                label: "Twitch",
+                href: "https://twitch.tv/m4tt_314",
+              },
+              {
+                label: "Ko-fi",
+                href: "https://ko-fi.com/m4tt_314",
+              }
+            ]
+          },
+          {
+            title: "Source of this web",
+            items: [
+              {
+                label: "GitLab",
+                href: "https://gitlab.com/mfocko/kb",
+              },
+              {
+                label: "GitLab FI",
+                href: "https://gitlab.fi.muni.cz/xfocko/kb",
+              },
+            ]
+          }
+        ],
       },
       prism: {
         theme: lightCodeTheme,
