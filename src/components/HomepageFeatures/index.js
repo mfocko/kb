@@ -28,7 +28,7 @@ const FeatureList = [
       <>
         This content is also deployed on{" "}
         <a href="https://fi.muni.cz/~xfocko/kb">aisa</a> or{" "}
-        <a href="https://fi.mfocko.xyz">poincare</a>.
+        <a href="https://blog.mfocko.xyz">poincare</a>.
       </>
     ),
   },

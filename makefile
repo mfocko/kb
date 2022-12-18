@@ -6,8 +6,8 @@ deploy-aisa:
 	rsync -avzrlpptv --delete build/ aisa:~/public_html/kb/
 
 deploy-poincare:
-	URL="https://kb.mfocko.xyz" BASE_URL="/" yarn run build
-	rsync -avzrlpptv --delete build/ poincare:~/public_html/kb/
+	URL="https://blog.mfocko.xyz" BASE_URL="/" yarn run build
+	rsync -avzrlpptv --delete build/ poincare:~/public_html/blog/
 
 deploy: regenerate-dots regenerate-zips deploy-aisa deploy-poincare
 
