@@ -49,18 +49,18 @@ class Subject {
 }
 
 const subjects = [
-    new Subject("ib002", "Algorithms"),
-    // new Subject("ib015", "Non-imperative programming"),
-    // new Subject("ib110", "Introduction to informatics"),
-    // new Subject("ib111", "Foundations of programming"),
-    new Subject("pb071", "C"),
-    new Subject("pb161", "C++"),
+  new Subject("ib002", "Algorithms"),
+  // new Subject("ib015", "Non-imperative programming"),
+  // new Subject("ib110", "Introduction to informatics"),
+  // new Subject("ib111", "Foundations of programming"),
+  new Subject("pb071", "C"),
+  new Subject("pb161", "C++"),
 ];
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Additional materials by mf",
-  tagline: "Additional materials",
+  title: "mf",
+  tagline: "blog and additional materials for courses at φ",
   url: process.env.URL,
   baseUrl: process.env.BASE_URL,
   onBrokenLinks: "warn",
@@ -119,7 +119,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Additional materials by mf",
+        title: "mf",
         items: [
           ...subjects.map(s => s.navbar()),
           {

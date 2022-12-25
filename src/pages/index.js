@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Additional materials for the course of Algorithms and Data structures I"
+      description="mf's blog and additional materials for courses at φ"
     >
       <HomepageHeader />
 

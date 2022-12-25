@@ -4,29 +4,32 @@ import styles from "./styles.module.css";
 
 const FeatureList = [
   {
+    title: "About Me",
+    description: (
+      <p>
+        I'm working in Red Hat in the <a href="https://github.com/packit">Packit
+          team</a> and studying at <a href="https://fi.muni.cz">FI MUNI</a> while
+        also tutoring some courses there.
+      </p>
+    ),
+  },
+  {
     title: "Content",
     description: (
       <>
-        On this page you can find unofficial materials I have written over the
-        course of teaching multiple courses at the FI.
+        On this page you can find my blog or unofficial materials I have written
+        over the course of teaching multiple courses at the FI.
       </>
     ),
   },
   {
-    title: "Source",
+    title: "This web",
     description: (
       <>
         This content can be found as a source at{" "}
         <a href="https://gitlab.com/mfocko/kb">GitLab</a> or{" "}
-        <a href="https://gitlab.fi.muni.cz/xfocko/kb">FI GitLab</a>.
-      </>
-    ),
-  },
-  {
-    title: "Deployment",
-    description: (
-      <>
-        This content is also deployed on{" "}
+        <a href="https://gitlab.fi.muni.cz/xfocko/kb">FI GitLab</a>. And you can
+        find it deployed on {" "}
         <a href="https://fi.muni.cz/~xfocko/kb">aisa</a> or{" "}
         <a href="https://blog.mfocko.xyz">poincare</a>.
       </>
