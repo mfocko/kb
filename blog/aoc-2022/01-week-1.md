@@ -468,6 +468,33 @@ the same time as parsing. That could be done by adding additional fields to the
 nodes which would allow storing such information and updating it as we construct
 the filesystem.
 
+## Post Mortem
+
+Things that have been brought up in the discussion later on.
+
+### `Rc<T>` vs `Rc<RefCell<T>>`
+
+It has been brought up that I have a contradicting statement regarding the
+dynamically allocated memory. Specifically:
+
+- You can imagine `Rc<T>` as an `std::shared_ptr<T>` (in C++)
+- When you want an equivalent of `std::shared_ptr<T>`, you want to use
+  `Rc<RefCell<T>>`
+
+Now, in Rust it is a bit more complicated, because the type that represents the
+„shared pointer“ is `Rc<T>`. What `RefCell<T>` does is making sure that there is
+only one „owner“ of a mutable reference at a time (and dynamically, as opposed
+to the `Cell<T>`).
+
+Therefore to be precise and correct about the equivalents of `std::shared_ptr<T>`
+in Rust, we can say that
+
+- `Rc<T>` is an equivalent of a `const std::shared_ptr<T>`,
+- and `Rc<RefCell<T>>` is an equivalent of a `std::shared_ptr<T>`.
+
+You can easily see that they only differ in the mutability. (And even that is not
+as simple as it seems, because there is also `Cell<T>`)
+
 [_Advent of Code_]: https://adventofcode.com
 [GitLab]: https://gitlab.com/mfocko/advent-of-code-2022
 [`/src/bin/`]: https://gitlab.com/mfocko/advent-of-code-2022/-/tree/main/src/bin

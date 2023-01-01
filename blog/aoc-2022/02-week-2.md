@@ -657,5 +657,217 @@ it up just a bit.
 
 Tedious.
 
+## Post Mortem
+
+### Indexing
+
+I was asked about the indexing after publishing the blog. And truly it is rather
+complicated topic, especially after releasing `SliceIndex<I>` trait. I couldn't
+leave it be, so I tried to implement the `Index` and `IndexMut` trait.
+
+:::note
+
+I have also mentioned that the `SliceIndex` trait is `unsafe`, but truth be told,
+only _unsafe_ part are the 2 methods that are named `*unchecked*`. Anyways, I will
+be implementing the `Index*` traits for now, rather than the `SliceIndex`.
+
+:::
+
+It's relatively straightforward…
+
+```rust
+impl<I, C> Index<Vector2D<I>> for [C]
+where
+    I: Copy + TryInto<usize>,
+    <I as TryInto<usize>>::Error: Debug,
+    C: Index<usize>,
+{
+    type Output = C::Output;
+
+    fn index(&self, index: Vector2D<I>) -> &Self::Output {
+        let (x, y): (usize, usize) =
+            (index.x.try_into().unwrap(), index.y.try_into().unwrap());
+        &self[y][x]
+    }
+}
+
+impl<I, C> IndexMut<Vector2D<I>> for [C]
+where
+    I: Copy + TryInto<usize>,
+    <I as TryInto<usize>>::Error: Debug,
+    C: IndexMut<usize>,
+{
+    fn index_mut(&mut self, index: Vector2D<I>) -> &mut Self::Output {
+        let (x, y): (usize, usize) =
+            (index.x.try_into().unwrap(), index.y.try_into().unwrap());
+        &mut self[y][x]
+    }
+}
+```
+
+We can see a lot of similarities to the implementation of `index` and `index_mut`
+functions. In the end, they are 1:1, just wrapped in the trait that provides a
+syntax sugar for `container[idx]`.
+
+:::note
+
+I have also switched from using the `TryFrom` to `TryInto` trait, since it better
+matches what we are using, the `.try_into` rather than `usize::try_from`.
+
+Also implementing `TryFrom` automatically provides you with a `TryInto` trait,
+since it is relatively easy to implement. Just compare the following:
+
+```rust
+pub trait TryFrom<T>: Sized {
+    type Error;
+
+    fn try_from(value: T) -> Result<Self, Self::Error>;
+}
+
+pub trait TryInto<T>: Sized {
+    type Error;
+
+    fn try_into(self) -> Result<T, Self::Error>;
+}
+```
+
+:::
+
+OK, so we have our trait implemented, we should be able to use `container[index]`,
+right? Yes… but actually no :frowning:
+
+```
+error[E0277]: the type `[std::vec::Vec<i8>]` cannot be indexed by `aoc_2022::Vector2D<usize>`
+  --> src/bin/day08.rs:26:18
+   |
+26 |         if trees[pos] > tallest {
+   |                  ^^^ slice indices are of type `usize` or ranges of `usize`
+   |
+   = help: the trait `std::slice::SliceIndex<[std::vec::Vec<i8>]>` is not implemented for `aoc_2022::Vector2D<usize>`
+   = note: required for `std::vec::Vec<std::vec::Vec<i8>>` to implement `std::ops::Index<aoc_2022::Vector2D<usize>>`
+
+error[E0277]: the type `[std::vec::Vec<i8>]` cannot be indexed by `aoc_2022::Vector2D<usize>`
+  --> src/bin/day08.rs:30:28
+   |
+30 |         max(tallest, trees[pos])
+   |                            ^^^ slice indices are of type `usize` or ranges of `usize`
+   |
+   = help: the trait `std::slice::SliceIndex<[std::vec::Vec<i8>]>` is not implemented for `aoc_2022::Vector2D<usize>`
+   = note: required for `std::vec::Vec<std::vec::Vec<i8>>` to implement `std::ops::Index<aoc_2022::Vector2D<usize>>`
+
+error[E0277]: the type `[std::vec::Vec<i8>]` cannot be indexed by `aoc_2022::Vector2D<isize>`
+  --> src/bin/day08.rs:52:28
+   |
+52 |     let max_height = trees[position];
+   |                            ^^^^^^^^ slice indices are of type `usize` or ranges of `usize`
+   |
+   = help: the trait `std::slice::SliceIndex<[std::vec::Vec<i8>]>` is not implemented for `aoc_2022::Vector2D<isize>`
+   = note: required for `std::vec::Vec<std::vec::Vec<i8>>` to implement `std::ops::Index<aoc_2022::Vector2D<isize>>`
+```
+
+Why? We have it implemented for the slices (`[C]`), why doesn't it work? Well,
+the fun part consists of the fact that in other place, where we were using it,
+we were passing the `&[Vec<T>]`, but this is coming from a helper functions that
+take `&Vec<Vec<T>>` instead. And… we don't implement `Index` and `IndexMut` for
+those. Just for the slices. :exploding_head: *What are we going to do about it?*
+
+We can either start copy-pasting or be smarter about it… I choose to be smarter,
+so let's implement a macro! The only difference across the implementations are
+the types of the outer containers. Implementation doesn't differ **at all**!
+
+Implementing the macro can be done in a following way:
+```rust
+macro_rules! generate_indices {
+    ($container:ty) => {
+        impl<I, C> Index<Vector2D<I>> for $container
+        where
+            I: Copy + TryInto<usize>,
+            <I as TryInto<usize>>::Error: Debug,
+            C: Index<usize>,
+        {
+            type Output = C::Output;
+
+            fn index(&self, index: Vector2D<I>) -> &Self::Output {
+                let (x, y): (usize, usize) =
+                    (index.x.try_into().unwrap(), index.y.try_into().unwrap());
+                &self[y][x]
+            }
+        }
+
+        impl<I, C> IndexMut<Vector2D<I>> for $container
+        where
+            I: Copy + TryInto<usize>,
+            <I as TryInto<usize>>::Error: Debug,
+            C: IndexMut<usize>,
+        {
+            fn index_mut(&mut self, index: Vector2D<I>) -> &mut Self::Output {
+                let (x, y): (usize, usize) =
+                    (index.x.try_into().unwrap(), index.y.try_into().unwrap());
+                &mut self[y][x]
+            }
+        }
+    };
+}
+```
+
+And now we can simply do
+```rust
+generate_indices!(VecDeque<C>);
+generate_indices!([C]);
+generate_indices!(Vec<C>);
+// generate_indices!([C; N], const N: usize);
+```
+
+The last type (I took the inspiration from the implementations of the `Index` and
+`IndexMut` traits) is a bit problematic, because of the `const N: usize` part,
+which I haven't managed to be able to parse. And that's how I got rid of the error.
+
+:::note
+
+If I were to use 2D-indexing over `[C; N]` slices, I'd probably just go with the
+copy-paste, cause the cost of this „monstrosity“ outweighs the benefits of no DRY.
+
+:::
+
+#### Cause of the problem
+
+This issue is relatively funny. If you don't use any type aliases, just the raw
+types, you'll get suggested certain changes by the _clippy_. For example if you
+consider the following piece of code
+```rust
+fn get_sum(nums: &Vec<i32>) -> i32 {
+    nums.iter().sum()
+}
+
+fn main() {
+    let nums = vec![1, 2, 3];
+    println!("Sum: {}", get_sum(&nums));
+}
+```
+
+and you run _clippy_ on it, you will get
+```
+Checking playground v0.0.1 (/playground)
+warning: writing `&Vec` instead of `&[_]` involves a new object where a slice will do
+ --> src/main.rs:1:18
+  |
+1 | fn get_sum(nums: &Vec<i32>) -> i32 {
+  |                  ^^^^^^^^^ help: change this to: `&[i32]`
+  |
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#ptr_arg
+  = note: `#[warn(clippy::ptr_arg)]` on by default
+
+warning: `playground` (bin "playground") generated 1 warning
+    Finished dev [unoptimized + debuginfo] target(s) in 0.61s
+```
+
+However, if you introduce a type alias, such as
+```rust
+type Numbers = Vec<i32>;
+```
+
+Then _clippy_ won't say anything, cause there is literally nothing to suggest.
+However the outcome is not the same…
+
 [_Advent of Code_]: https://adventofcode.com
 [BFS above]: #day-12-hill-climbing-algorithm
