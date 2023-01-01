@@ -93,7 +93,7 @@ them both to `usize` type that can be used later on for indexing.
 The type signature of the function is where the fun is at :wink: We are trying
 to convert unknown type to `usize`, so we must bound the `T` as a type that can
 be converted to `usize`, that's how we got `usize: TryFrom<T>` which basically
-says that `usize` must implement `TryFrom<T>` trait vand therefore allows us to
+says that `usize` must implement `TryFrom<T>` trait and therefore allows us to
 convert the indices to actual `usize` indices. Using `.unwrap()` also forces us
 to bound the error that can occur when converting `T` into `usize`, that's how
 we get `<usize as TryFrom<T>>::Error: Debug` which loosely means
@@ -107,7 +107,7 @@ And now we are left only with the first line of the definition.
 
 :::note
 
-Skilled Rustaceans might notice that this implemention is rather flaky and can
+Skilled Rustaceans might notice that this implementation is rather flaky and can
 break in multiple places at once. I'll get back to it…
 
 :::
@@ -358,7 +358,7 @@ where
 ```
 
 This is all part of the `Solution` trait, which can implement methods while being
-dependant on what is provided by the implementing types. In this case, we just
+dependent on what is provided by the implementing types. In this case, we just
 need to bound the `Output` type to implement `Display` that is necessary for the
 `info!` and format string there.
 
@@ -589,7 +589,7 @@ also rolling down the hill…
 
 As I have said in the _tl;dr_, we are looking for the shortest path, but the start
 and goal differ for the part 1 and 2. So I have decided to refactor my solution
-to a BFS algorithm that takes neccessary parameters via functions:
+to a BFS algorithm that takes necessary parameters via functions:
 ```rust
 fn bfs<F, G>(
     graph: &[Vec<char>], start: &Position, has_edge: F, is_target: G

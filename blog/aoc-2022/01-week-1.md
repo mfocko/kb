@@ -227,7 +227,7 @@ It may seem as a very weird decision, but in fact it makes some sense… It allo
 you to do intersection of items that may not be possible to copy. Overall this is
 a „tax“ for having a borrow checker ~~drilling your ass~~ having your back and
 making sure you're not doing something naughty that may cause an **undefined**
-**behaviour**.
+**behavior**.
 
 :::
 
@@ -328,7 +328,7 @@ A lot of different approaches, knowing that we are dealing with input consisting
 solely of ASCII letters, I bit the bullet and went with sliding window and
 constructing sets from that window, checking if the set is as big as the window.
 
-One possible optimization could consist of keeping a bitvector (i.e. `usize`
+One possible optimization could consist of keeping a bit-vector (i.e. `usize`
 variable) of encountered characters and updating it as we go. However this has
 a different issue and that is removal of the characters from the left side of the
 window. We don't know if the same character is not included later on.
@@ -341,7 +341,7 @@ of 26 elements that keeps count for each lowercase letter.
 
 :::info tl;dr
 
-Let's simulate [`du`] to get some stats about our filesystem and then pinpoint
+Let's simulate [`du`] to get some stats about our file system and then pinpoint
 directories that take a lot of space and should be deleted.
 
 :::
@@ -351,7 +351,7 @@ directories that take a lot of space and should be deleted.
 
 ### Solution
 
-We need to „_build_“ a filesystem from the input that is given in a following form:
+We need to „_build_“ a file system from the input that is given in a following form:
 ```
 $ cd /
 $ ls
@@ -401,7 +401,7 @@ Then I looked up some implementations of trees or linked lists and decided to tr
 `Box<T>` represents a dynamically allocated memory on heap. It is a single pointer,
 you can imagine this as `std::unique_ptr<T>` in C++.
 
-`Rc<T>` represents a dynamically allocated mmemory on heap. On top of that it is
+`Rc<T>` represents a dynamically allocated memory on heap. On top of that it is
 _reference counted_ (that's what the `Rc` stands for). You can imagine this as
 `std::shared_ptr<T>` in C++.
 
@@ -419,7 +419,7 @@ to have `Rc<RefCell<T>>`.
 
 :::
 
-So, how are we going to represent the filesystem then? We will use an enumeration,
+So, how are we going to represent the file system then? We will use an enumeration,
 hehe, which is an algebraic data type that can store some stuff in itself :weary:
 ```rust
 type FileHandle = Rc<RefCell<AocFile>>;
@@ -443,7 +443,7 @@ Now to the fun part! `AocFile` value can be represented in two ways:
   contain map matching the name of the files (or directories) within to their
   respective file handles
 
-I will omit the details about constructing this filesystem, cause there are a lot
+I will omit the details about constructing this file system, cause there are a lot
 of technicalities introduced by the nature of the input. However if you are
 interested, you can have a look at my solution.
 
@@ -466,7 +466,7 @@ solution.
 One of the more exotic options would be precomputing the required information at
 the same time as parsing. That could be done by adding additional fields to the
 nodes which would allow storing such information and updating it as we construct
-the filesystem.
+the file system.
 
 ## Post Mortem
 
