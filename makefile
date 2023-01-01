@@ -1,5 +1,5 @@
 dev: regenerate-dots regenerate-zips
-	URL=http://localhost BASE_URL=/ yarn run start
+	URL=http://localhost BASE_URL=/ yarn run start --no-open
 
 deploy-aisa:
 	URL="https://fi.muni.cz" BASE_URL="~xfocko/kb/" yarn run build
