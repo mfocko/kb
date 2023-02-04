@@ -83,7 +83,7 @@ As we could observe in the example above, `extend` iterates over all of the elem
 
 Consider constructing of this list:
 
-![Rendered construction of the list](/files/ib002/extend/construction.svg)
+![Rendered construction of the list](/files/ib002/extend/construction_light.svg#gh-light-mode-only)![Rendered construction of the list](/files/ib002/extend/construction_dark.svg#gh-dark-mode-only)
 
 Let us assume that you extend the result with the list that you get from the recursive call.
 
