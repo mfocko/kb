@@ -206,8 +206,20 @@ const config = {
         sidebar: {
           hideable: true,
         }
-      }
+      },
+      mermaid: {
+        options: {
+          fontFamily: "Iosevka,'Iosevka Term','Cascadia Code','JetBrains Mono','Fira Code',monospace",
+        },
+      },
     }),
+
+  markdown: {
+    mermaid: true,
+  },
+  themes: [
+    '@docusaurus/theme-mermaid',
+  ],
 };
 
 module.exports = config;
