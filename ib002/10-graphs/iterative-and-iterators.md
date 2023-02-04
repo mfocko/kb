@@ -21,81 +21,108 @@ On the other hand, we have seen iterative implementation in the exercises and I 
 
 ### Recursive DFS implementation from exercises without colors
 
-```
-FUNCTION VisitedDFS(u, Visited) IS
-    Visited <- Union(Visited, { u })
-    FOR v IN u.successors DO
-        IF v NOT IN Visited THEN
-            Visited <- VisitedDFS(v, Visited)
-        FI
-    OD
+```ada showLineNumbers
+function VisitedDFS(u: Vertex, visited: VertexSet) return VertexSet is
+    v: Vertex;
+begin
+    visited.Union(To_Set(u));
 
-    RETURN Visited
-END
+    for v in u.successors loop
+        if not Contains(visited, v) then
+            visited := visitedDFS(v, Visited);
+        end if;
+    end loop;
+
+    return visited;
+end VisitedDFS;
 ```
 
 This implementation is correct, does the DFS traversal as it should, however it has one „smallish“ downside and that is the time complexity. The usage of set raises the time complexity, of course it is implementation dependant. However in case of either RB-tree or hash-table implementation, we get look-up in time $\mathcal{O}(n)$ for hash-table in worst-case or $\mathcal{O}(\log n)$ for the other in the worst-case. Both are not ideal compared to checking color on vertex.
 
 ### Iterative DFS from the exercises
 
-```
-PROCEDURE IterDFS(u)
-    stack <- empty stack
-    Push(stack, (u, 0))
-    u.color <- gray
-    time <- 1
-    u.d <- time
+```ada showLineNumbers
+procedure IterDFS(u: Vertex) is
+    stack: StateVector;
+    i, time: Integer;
+    v: Vertex;
+begin
+    stack.Append(VertexState(u, 0));
+    u.color := Gray;
+    time := 1;
+    u.d := time;
 
-    WHILE NOT Empty(stack) DO
-        (u, k) <- Pop(stack)
+    while not stack.Is_Empty loop
+        u := stack.Last_Element.Vertex;
+        i := stack.Last_Element.NextIndex;
+        stack.Delete_Last;
 
-        IF k < Length(u.successors) THEN
-            // search is not finished, is pushed back to stack
-            Push(stack, (u, k + 1))
+        if i < u.successors.Length then
+            -- search is not finished, is pushed back to stack
+            stack.Append(VertexState(u, k + 1));
 
-            v <- u.successors[k + 1]
-            IF v.color = white THEN
-                Push(stack, (v, 0))
-                v.color <- gray
-                time <- time + 1
-                v.d <- time
-            FI
-        ELSE
-            // u has no other successors, we can finish the search
-            time <- time + 1
-            u.f <- time
-            u.color <- black
-        FI
-    OD
-END
+            v := u.successors.Element(i);
+            if v.color = White then
+                stack.Append(VertexState(v, 0));
+                v.color := Gray;
+                time := time + 1;
+                v.d := time;
+            end if;
+        else
+            -- u has no other successors, we can finish the search
+            time := time + 1;
+            u.f := time;
+            u.color := Black;
+        end if;
+    end loop;
+
+end IterDFS;
 ```
 
 As we can see, there is some ordering in which we search through the successors. Time complexity is OK, stack holds at most all vertices (they must be on the current path).
 
 ### My iterative with path in stack
 
-```
-PROCEDURE DFS(G, start) IS
-    path <- [ start ]
-    time <- 1
-    start.d, start.color <- time, gray
+```ada showLineNumbers
+procedure DFS(start: Vertex) is
+    path: VertexVector;
+    time: Integer;
+    hasSuccessor: Bool;
+    successor: Vertex;
+begin
+    path.Append(start);
+    time := 1;
 
-    WHILE NOT Empty(path) DO
-        hasSuccessor <- false
-        FOR successor IN path[-1].successors DO
-            IF successor.color = white THEN
-                hasSuccessor <- true
-                successor.d, successor.color <- ++time, gray
-                path <- Append(path, successor)
-                BREAK
-            FI
-        OD
-        IF NOT hasSuccessor THEN
-            lastVertex <- Pop(path)
-            lastVertex.f, lastVertex.color <- ++time, black
-        FI
-    OD
-END
+    start.d := time;
+    start.color := Gray;
+
+    while not path.Is_Empty loop
+        hasSuccessor := false;
+
+        for successor in path.Last_Element.successors loop
+            if successor.color = White then
+                hasSuccessor := true;
+
+                successor.d := time + 1;
+                successor.color := Gray;
+                time := time + 1;
+
+                path.Append(successor);
+
+                exit;
+            end if;
+        end loop;
+
+        if not hasSuccessor then
+            path.Last_Element.f := time + 1;
+            path.Last_Element.color := Black;
+
+            time := time + 1;
+            path.Delete_Last;
+        end if;
+
+    end loop;
+end DFS;
 ```
 
 This approach is similar to the iterative solution from the exercises, but it does not keep the index of the next successor, therefore it always iterates through all of them, which raises the time complexity.
@@ -104,26 +131,43 @@ This approach is similar to the iterative solution from the exercises, but it do
 
 On the other hand, we do not actually have to depend on the representation of the graph. In this case, we just _somehow_ obtain the iterator (which yields all of the succesors) and keep it in the stack.
 
-```
-PROCEDURE DFS(G, start) IS
-    path <- [ (start, Iterator(start.successors)) ]
-    time <- 1
-    start.d, start.color <- time, gray
+```ada showLineNumbers
+procedure DFS(start: Vertex) is
+    path: StateVector;
+    time: Integer;
+    current: State;
+    nextVertex: Vertex;
+begin
+    path.Append(State(start));
+    time := 1;
 
-    WHILE NOT Empty(path) DO
-        lastVertex, successors <- path[-1]
+    start.d := time;
+    start.color := Gray;
 
-        IF NOT MoveNext(successors) THEN
-            Pop(path)
-            lastVertex.f, lastVertex.color <- ++time, black
-        ELSE IF successors.Current.color = white THEN
-            nextVertex <- successors.Current
-            nextVertex.d, nextVertex.color <- ++time, gray
-            path <- Append(path, (nextVertex, Iterator(nextVertex.successors)))
-        FI
-    OD
-END
+    while not path.Is_Empty loop
+        current := path.Last_Element;
+
+        if not Move_Next(current.successors) then
+            path.Delete_Last;
+
+            time := time + 1;
+            current.vertex.f := time;
+
+            current.vertex.color := Black;
+        else if current.successors.Value.color = white then
+            nextVertex := current.successors.Value;
+
+            time := time + 1;
+            nextVertex.d := time;
+
+            nextVertex.color := Gray;
+
+            path.Append(State(nextVertex));
+        end if;
+    end loop;
+end DFS;
 ```
+
 
 ( The way we manipulate with the iterators is closest to the C# implementation. Apart from the `Iterator` thing :) In case you tried to implement it in C++, you would more than likely need to change the check, since you would get first successor right at the beginning )
 
